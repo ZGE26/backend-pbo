@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class TU extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['nama', 'nip', 'alamat'];
 }
