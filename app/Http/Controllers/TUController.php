@@ -32,6 +32,7 @@ class TUController extends Controller
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
+            'id_sekolah' => 'required|integer',
         ]);
 
         $tu = TU::create($request->all());

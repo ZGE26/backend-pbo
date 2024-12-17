@@ -29,10 +29,10 @@ class SiswaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
             'nisn' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
-            'kelas_id' => 'required|integer',
+            'id_kelas' => 'required|integer',
         ]);
 
         $siswa = Siswa::create($request->all());

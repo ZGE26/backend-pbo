@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('nip', 20)->unique();
             $table->string('alamat')->nullable();
             $table->unsignedBigInteger('id_mapel')->nullable();
+            $table->unsignedBigInteger('id_sekolah')->nullable();
+            $table->foreign('id_sekolah')->references('id_sekolah')->on('sekolahs')->onDelete('cascade');
             $table->foreign('id_mapel')->references('id_mapel')->on('mapels')->onDelete('set null');
             $table->timestamps();
         });

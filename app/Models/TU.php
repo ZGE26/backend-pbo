@@ -9,5 +9,5 @@ class TU extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'nip', 'alamat'];
+    protected $fillable = ['nama', 'nip', 'alamat', 'id_sekolah'];
 }
