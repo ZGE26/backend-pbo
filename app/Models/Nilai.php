@@ -9,5 +9,5 @@ class Nilai extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nisn', 'id_mapel', 'nilai'];
+    protected $fillable = ['id_member', 'id_mapel', 'nilai'];
 }

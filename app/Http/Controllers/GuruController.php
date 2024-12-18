@@ -75,4 +75,22 @@ class GuruController extends Controller
         $guru->delete();
         return response()->json(null, 204);
     }
+
+    public function Login(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'nip' => 'required|string|max:255',
+        ]);
+
+        $guru = Guru::where('nama', $request->nama)
+        ->where('nip', $request->nip)
+        ->first();
+
+        if ($guru) {
+            return response()->json(['message' => 'Login berhasil', 'data' => $guru], 200);
+        } else {
+            return response()->json(['message' => 'Nama atau NIP salah'], 401);
+        }
+    }
 }

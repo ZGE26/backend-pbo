@@ -9,6 +9,7 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\TUController;
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,8 @@ Route::apiResource('sekolah', SekolahController::class);
 Route::apiResource('mapel', MapelController::class);
 Route::apiResource('kelas', KelasController::class);
 Route::apiResource('siswa', SiswaController::class);
+Route::post ('/login', [AuthController::class, 'login']);
+Route::post ('/logout', [AuthController::class, 'logout']);
 Route::apiResource('guru', GuruController::class);
 Route::apiResource('tu', TUController::class);
 Route::apiResource('nilai', NilaiController::class);

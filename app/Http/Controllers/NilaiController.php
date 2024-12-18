@@ -29,8 +29,8 @@ class NilaiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'siswa_id' => 'required|integer',
-            'mapel_id' => 'required|integer',
+            'id_member' => 'required|string|max:255',
+            'id_mapel' => 'required|integer',
             'nilai' => 'required|numeric',
         ]);
 
