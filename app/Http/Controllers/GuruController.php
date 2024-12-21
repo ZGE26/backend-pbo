@@ -32,7 +32,7 @@ class GuruController extends Controller
             'nama' => 'required|string|max:255',
             'nip' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
-            'id_mapel' => 'required|integer', // Sesuaikan dengan key di cURL
+            'id_mapel' => 'required|integer',
             'id_sekolah' => 'required|integer',
         ]);
 

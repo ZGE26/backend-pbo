@@ -12,6 +12,9 @@ class KelasController extends Controller
      */
     public function index()
     {
+        if (request()->query('id_kelas')) {
+            return response()->json(Kelas::where('id_kelas', request()->query('id_kelas'))->first());
+        }
         return Kelas::all();
     }
 

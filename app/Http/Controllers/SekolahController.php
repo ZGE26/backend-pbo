@@ -9,6 +9,10 @@ class SekolahController extends Controller
 {
     public function index()
     {
+        if (request()->query('id_sekolah')) {
+            return response()->json(Sekolah::where('id_sekolah', request()->query('id_sekolah'))->first());
+        }
+
         return Sekolah::all();
     }
 
