@@ -12,6 +12,9 @@ class TUController extends Controller
      */
     public function index()
     {
+        if (request()->query('nip')) {
+            return response()->json(TU::where('nip', request()->query('nip'))->first());
+        }
         return TU::all();
     }
 

@@ -12,6 +12,9 @@ class GuruController extends Controller
      */
     public function index()
     {
+        if (request()->query('nip')) {
+            return response()->json(Guru::where('nip', request()->query('nip'))->first());
+        }
         return Guru::all();
     }
 

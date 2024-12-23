@@ -12,6 +12,10 @@ class MapelController extends Controller
      */
     public function index()
     {
+        if (request()->query('id_mapel')) {
+            return response()->json(Mapel::where('id_mapel', request()->query('id_mapel'))->first());
+        }
+
         return Mapel::all();
     }
 

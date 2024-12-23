@@ -11,9 +11,34 @@ class NilaiController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        return Nilai::all();
+{
+    // Jika kedua parameter id_member dan id_mapel diberikan
+    if (request()->query('id_member') && request()->query('id_mapel')) {
+        return response()->json(
+            Nilai::where('id_member', request()->query('id_member'))
+                ->where('id_mapel', request()->query('id_mapel'))
+                ->first()
+        );
     }
+
+    // Jika hanya id_mapel yang diberikan
+    if (request()->query('id_mapel')) {
+        return response()->json(
+            Nilai::where('id_mapel', request()->query('id_mapel'))->get()
+        );
+    }
+
+    // Jika hanya id_member yang diberikan
+    if (request()->query('id_member')) {
+        return response()->json(
+            Nilai::where('id_member', request()->query('id_member'))->get()
+        );
+    }
+
+    // Jika tidak ada parameter yang diberikan, tampilkan semua nilai
+    return Nilai::all();
+}
+
 
     /**
      * Show the form for creating a new resource.

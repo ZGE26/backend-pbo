@@ -12,6 +12,16 @@ class SiswaController extends Controller
      */
     public function index()
     {
+        if (request()->query('nisn')) {
+            return response()->json(Siswa::where('nisn', request()->query('nisn'))->first());
+        }
+
+        return response()->json(Siswa::where('id_kelas', request()->query('id_kelas'))->get());
+
+
+        if (request()->query('id_kelas')) {
+            return response()->json(Siswa::where('id_kelas', request()->query('id_kelas'))->first());
+        }
         return Siswa::all();
     }
 
