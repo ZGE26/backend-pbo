@@ -82,12 +82,24 @@ class NilaiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $nilai = Nilai::findOrFail($id);
-        $nilai->update($request->all());
-        return response()->json($nilai, 200);
-    }
+    public function update(Request $request)
+{
+    // Ambil parameter dari query string
+    $id_member = $request->query('id_member');
+    $id_mapel = $request->query('id_mapel');
+
+    // Cari data berdasarkan id_member dan id_mapel
+    $nilai = Nilai::where('id_member', $id_member)
+                  ->where('id_mapel', $id_mapel)
+                  ->firstOrFail();
+
+    // Perbarui data
+    $nilai->update($request->all());
+
+    // Kembalikan response
+    return response()->json($nilai, 200);
+}
+
 
     /**
      * Remove the specified resource from storage.

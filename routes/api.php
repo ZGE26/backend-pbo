@@ -35,5 +35,3 @@ Route::post ('/logout', [AuthController::class, 'logout']);
 Route::apiResource('guru', GuruController::class);
 Route::apiResource('tu', TUController::class);
 Route::apiResource('nilai', NilaiController::class);
-
-// Route::post('/sekolah', [SekolahController::class, 'store']);
