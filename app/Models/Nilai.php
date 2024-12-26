@@ -10,4 +10,5 @@ class Nilai extends Model
     use HasFactory;
 
     protected $fillable = ['id_member', 'id_mapel', 'nilai'];
+    protected $primaryKey = "id_member";
 }
