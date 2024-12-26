@@ -43,6 +43,7 @@ class SiswaController extends Controller
             'nama' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'id_kelas' => 'required|integer',
+            'gender' => 'required|string|max:255',
         ]);
 
         $siswa = Siswa::create($request->all());

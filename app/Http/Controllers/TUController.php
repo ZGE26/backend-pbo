@@ -15,6 +15,10 @@ class TUController extends Controller
         if (request()->query('nip')) {
             return response()->json(TU::where('nip', request()->query('nip'))->first());
         }
+
+        if (request()->query('id_sekolah')) {
+            return response()->json(TU::where('id_sekolah', request()->query('id_sekolah'))->get());
+        }
         return TU::all();
     }
 
@@ -36,6 +40,7 @@ class TUController extends Controller
             'nip' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'id_sekolah' => 'required|integer',
+            'gender' => 'required|string|max:255',
         ]);
 
         $tu = TU::create($request->all());

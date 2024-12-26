@@ -15,6 +15,10 @@ class KelasController extends Controller
         if (request()->query('id_kelas')) {
             return response()->json(Kelas::where('id_kelas', request()->query('id_kelas'))->first());
         }
+
+        if (request()->query('id_sekolah')) {
+            return response()->json(Kelas::where('id_sekolah', request()->query('id_sekolah'))->get());
+        }
         return Kelas::all();
     }
 

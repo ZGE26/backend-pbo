@@ -15,6 +15,11 @@ class GuruController extends Controller
         if (request()->query('nip')) {
             return response()->json(Guru::where('nip', request()->query('nip'))->first());
         }
+
+        if (request()->query('id_sekolah')) {
+            return response()->json(Guru::where('id_sekolah', request()->query('id_sekolah'))->get());
+        }
+
         return Guru::all();
     }
 
@@ -37,6 +42,7 @@ class GuruController extends Controller
             'alamat' => 'required|string|max:255',
             'id_mapel' => 'required|integer',
             'id_sekolah' => 'required|integer',
+            'gender' => 'required|string|max:255',
         ]);
 
         $guru = Guru::create($request->all());

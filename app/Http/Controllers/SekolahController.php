@@ -13,6 +13,10 @@ class SekolahController extends Controller
             return response()->json(Sekolah::where('id_sekolah', request()->query('id_sekolah'))->first());
         }
 
+        if (request()->query('nama_sekolah')) {
+            return response()->json(Sekolah::where('nama_sekolah', request()->query('nama_sekolah'))->first());
+        }
+
         return Sekolah::all();
     }
 
