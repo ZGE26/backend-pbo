@@ -68,22 +68,47 @@ class GuruController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $guru = Guru::findOrFail($id);
-        $guru->update($request->all());
-        return response()->json($guru, 200);
+    public function update(Request $request, string $nip)
+{
+    // Validasi input data
+
+    $validatedData = $request->validate([
+        'nama' => 'required|string|max:255',
+        'alamat' => 'required|string|max:255',
+    ]);
+    
+    // Cari data Guru berdasarkan NIP
+    $guru = Guru::where('nip', $nip)->first();
+    
+    if (!$guru) {
+        return response()->json(['message' => 'Data not found'], 404);
     }
+
+    // Update data berdasarkan field yang telah divalidasi
+    $guru->update([
+        'nama' => $validatedData['nama'],
+        'alamat' => $validatedData['alamat'],
+    ]);
+
+    return response()->json([
+        'message' => 'Data updated successfully',
+        'data' => $guru
+    ], 200);
+}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $nip)
     {
-        $guru = Guru::findOrFail($id);
-        $guru->delete();
+        $tu = Guru::find($nip);
+        if (!$tu) {
+            return response()->json(['message' => 'Data not found'], 404);
+        }
+        $tu->delete();
         return response()->json(null, 204);
     }
+
 
     public function Login(Request $request)
     {

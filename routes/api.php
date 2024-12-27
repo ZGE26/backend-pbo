@@ -32,8 +32,13 @@ Route::apiResource('kelas', KelasController::class);
 Route::apiResource('siswa', SiswaController::class);
 Route::post ('/login', [AuthController::class, 'login']);
 Route::post ('/logout', [AuthController::class, 'logout']);
+Route::get ('/cekRole', [AuthController::class, 'cekRole']);
 Route::apiResource('guru', GuruController::class);
 Route::apiResource('tu', TUController::class);
 Route::apiResource('nilai', NilaiController::class);
+Route::get('/nilai/ratarata', [NilaiController::class, 'average']);
 
 Route::put('/nilai/{id_member}/{id_mapel}', [NilaiController::class, 'update']);
+Route::put('/tu/{nip}', [TUController::class, 'update']);
+Route::put('/guru/{nip}', [GuruController::class, 'update']);
+Route::put('/siswa/{nsin}', [SiswaController::class, 'update']);

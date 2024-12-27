@@ -22,6 +22,8 @@ class SiswaController extends Controller
         if (request()->query('id_kelas')) {
             return response()->json(Siswa::where('id_kelas', request()->query('id_kelas'))->first());
         }
+
+        
         return Siswa::all();
     }
 
@@ -69,20 +71,26 @@ class SiswaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $nisn)
     {
-        $siswa = Siswa::findOrFail($id);
-        $siswa->update($request->all());
+        $validasi = $request->validate([
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'id_kelas' => 'required|integer',
+        ]);
+
+        $siswa = Siswa::where('nisn', $nisn)->first();
+        $siswa->update($validasi);
         return response()->json($siswa, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $nisn)
     {
-        $siswa = Siswa::findOrFail($id);
+        $siswa = Siswa::where('nisn', $nisn)->first();
         $siswa->delete();
-        return response()->json(null, 204);
+        return response()->json(['message' => 'Data deleted successfully'], 200);
     }
 }

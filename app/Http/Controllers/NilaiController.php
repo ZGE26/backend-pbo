@@ -4,14 +4,45 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Nilai;
+use App\Models\Mapel;
 
 class NilaiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+     // Model Nilai
+public function mapel()
+{
+    return $this->belongsTo(Mapel::class, 'id_mapel');
+}
+
+
     public function index()
 {
+
+    if (request()->query('average')) {
+        // Hitung jumlah mapel dari controller lain (atau model terkait)
+        $totalMapel = Mapel::count();
+    
+        // Ambil data nilai dan hitung rata-rata
+        $nilai = Nilai::select('id_member')
+            ->selectRaw("SUM(nilai) / {$totalMapel} as rata_rata") // Total nilai dibagi jumlah mapel
+            ->groupBy('id_member')
+            ->orderByDesc('rata_rata')
+            ->get();
+    
+        // Menambahkan ranking berdasarkan urutan rata-rata
+        $nilai->transform(function ($item, $index) {
+            $item->ranking = $index + 1;
+            return $item;
+        });
+    
+        return response()->json($nilai);
+    }
+    
+
     // Jika kedua parameter id_member dan id_mapel diberikan
     if (request()->query('id_member') && request()->query('id_mapel')) {
         return response()->json(
@@ -113,10 +144,13 @@ class NilaiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id_member)
     {
-        $nilai = Nilai::findOrFail($id);
+        $nilai = Nilai::where('id_member', $id_member)->first();
+        if (!$nilai) {
+            return response()->json(['message' => 'Data not found'], 404);
+        }
         $nilai->delete();
-        return response()->json(null, 204);
+        return response()->json(['message' => 'Data deleted successfully'], 200);
     }
 }

@@ -55,6 +55,46 @@ class AuthController extends Controller
         ], 401);
     }
 
+    public function cekRole(Request $request)
+{
+    // Validasi input dari query string
+    $request->validate(['nomor_induk' => 'required|string']);
+
+    // Mengambil 'nomor_induk' dari query string
+    $nomor_induk = $request->query('nomor_induk');
+    
+    // Cek apakah data siswa ada
+    $siswa = Siswa::where('nisn', $nomor_induk)->first();
+    if ($siswa) {
+        return response()->json([
+            'message' => 'Siswa',
+            'data' => $siswa
+        ], 200);
+    }
+
+    // Cek apakah data guru ada
+    $guru = Guru::where('nip', $nomor_induk)->first();
+    if ($guru) {
+        return response()->json([
+            'message' => 'Guru',
+            'data' => $guru
+        ], 200);
+    }
+
+    // Cek apakah data TU ada
+    $tu = TU::where('nip', $nomor_induk)->first();
+    if ($tu) {
+        return response()->json([
+            'message' => 'TU',
+            'data' => $tu
+        ], 200);
+    }
+
+    // Jika tidak ada data yang ditemukan
+    return response()->json(['message' => 'Data not found'], 404);
+}
+
+
     public function logout(Request $request)
     {
         return response()->json([

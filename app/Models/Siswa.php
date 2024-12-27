@@ -10,4 +10,5 @@ class Siswa extends Model
     use HasFactory;
 
     protected $fillable = ['nisn', 'nama', 'alamat', 'id_kelas', 'gender'];
+    protected $primaryKey = "nisn";
 }
