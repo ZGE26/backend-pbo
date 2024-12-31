@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Nilai;
-use App\Models\Mapel;
+use App\Models\KelasMapel;
 
 class NilaiController extends Controller
 {
@@ -15,7 +15,7 @@ class NilaiController extends Controller
      // Model Nilai
 public function mapel()
 {
-    return $this->belongsTo(Mapel::class, 'id_mapel');
+    return $this->belongsTo(KelasMapel::class, 'id_kelas');
 }
 
 
@@ -24,7 +24,7 @@ public function mapel()
 
     if (request()->query('average')) {
         // Hitung jumlah mapel dari controller lain (atau model terkait)
-        $totalMapel = Mapel::count();
+        $totalMapel = KelasMapel::count();
     
         // Ambil data nilai dan hitung rata-rata
         $nilai = Nilai::select('id_member')
